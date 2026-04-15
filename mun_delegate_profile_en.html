@@ -1,172 +1,356 @@
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  .wrap { padding: 1.5rem 0; font-family: var(--font-sans); }
-  .hero { display: flex; align-items: center; gap: 16px; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid var(--color-border-tertiary); }
-  .avatar { width: 52px; height: 52px; border-radius: 50%; background: #CECBF6; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; color: #3C3489; flex-shrink: 0; }
-  .hero-name { font-size: 20px; font-weight: 500; margin: 0; color: var(--color-text-primary); }
-  .hero-sub { font-size: 13px; color: var(--color-text-secondary); margin: 3px 0 0; }
-  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 1.5rem; }
-  .metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 14px 12px; }
-  .m-label { font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-  .m-val { font-size: 30px; font-weight: 500; color: var(--color-text-primary); line-height: 1; }
-  .m-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
-  .sec { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 12px; }
-  .badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
-  .bg { background: #EEEDFE; color: #3C3489; }
-  .bt { background: #E1F5EE; color: #0F6E56; }
-  .ba { background: #FAEEDA; color: #854F0B; }
-  .bb { background: #E6F1FB; color: #185FA5; }
-  .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; color: var(--color-text-primary); gap: 8px; }
-  .row:last-child { border-bottom: none; }
-  .row-l { flex: 1; }
-  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .bar-lbl { font-size: 12px; color: var(--color-text-secondary); width: 90px; flex-shrink: 0; text-align: right; }
-  .bar-track { flex: 1; height: 7px; background: var(--color-background-secondary); border-radius: 4px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 4px; }
-  .bar-n { font-size: 12px; font-weight: 500; color: var(--color-text-primary); width: 18px; flex-shrink: 0; }
-  .tl-item { display: flex; gap: 12px; padding-bottom: 14px; }
-  .tl-l { display: flex; flex-direction: column; align-items: center; width: 14px; flex-shrink: 0; }
-  .tl-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
-  .tl-line { flex: 1; width: 1px; background: var(--color-border-tertiary); margin-top: 3px; }
-  .tl-body { font-size: 12px; color: var(--color-text-primary); line-height: 1.5; }
-  .tl-yr { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
-  .impact-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px; text-align: center; }
-  .i-num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
-  .i-lbl { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; line-height: 1.4; }
-  .arow { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; }
-  .arow:last-child { border-bottom: none; }
-  .adot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-  .aname { flex: 1; color: var(--color-text-primary); }
-  .ayear { color: var(--color-text-secondary); white-space: nowrap; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f2eb;
+    --gold: #b89a5a;
+    --gold-light: #e8d9b8;
+    --deep: #1a1a2e;
+    --muted: #6b6558;
+  }
+  .pg {
+    background: var(--deep);
+    padding: 2.5rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+  .shell {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--paper);
+    border-radius: 4px;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+  /* HEADER */
+  .header {
+    background: var(--deep);
+    padding: 2.5rem 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,154,90,0.2);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    top: -10px; right: -10px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,154,90,0.15);
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--paper);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: rgba(245,242,235,0.5);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+  .conf-badge {
+    background: rgba(184,154,90,0.12);
+    border: 1px solid rgba(184,154,90,0.3);
+    border-radius: 3px;
+    padding: 8px 14px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .conf-badge .n { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--gold); line-height:1; }
+  .conf-badge .l { font-size: 10px; color: rgba(245,242,235,0.45); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(184,154,90,0.15);
+    border: 1px solid rgba(184,154,90,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .sstat {
+    background: rgba(255,255,255,0.03);
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .sstat .v { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--paper); }
+  .sstat .l { font-size: 10px; color: rgba(245,242,235,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+
+  /* BODY */
+  .body { padding: 2rem 2.5rem; }
+
+  .section { margin-bottom: 2rem; }
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .sec-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #c4b99a, transparent);
+  }
+  .sec-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* AWARD BARS */
+  .award-grid { display: flex; flex-direction: column; gap: 10px; }
+  .award-item { display: flex; align-items: center; gap: 14px; }
+  .award-name { font-size: 12px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .award-track {
+    flex: 1;
+    height: 6px;
+    background: #e8e4da;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .award-bar {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gold);
+    transform-origin: left;
+    animation: barGrow 0.8s cubic-bezier(.4,0,.2,1) both;
+  }
+  @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .award-item:nth-child(1) .award-bar { animation-delay: 0.1s; }
+  .award-item:nth-child(2) .award-bar { animation-delay: 0.2s; }
+  .award-item:nth-child(3) .award-bar { animation-delay: 0.3s; }
+  .award-item:nth-child(4) .award-bar { animation-delay: 0.4s; }
+  .award-item:nth-child(5) .award-bar { animation-delay: 0.5s; }
+  .award-count { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--ink); width: 20px; }
+
+  /* TWO COL */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+  /* ROLES */
+  .role-list { list-style: none; }
+  .role-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #ddd8cc;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .role-item:last-child { border-bottom: none; }
+  .role-pill {
+    font-size: 11px;
+    background: var(--deep);
+    color: var(--gold-light);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 18px; }
+  .timeline::before { content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:linear-gradient(to bottom, var(--gold), transparent); }
+  .tl { position: relative; padding-bottom: 16px; }
+  .tl::before { content:''; position:absolute; left:-17px; top:5px; width:7px; height:7px; border-radius:50%; background:var(--gold); }
+  .tl-year { font-size: 10px; color: var(--gold); font-weight: 500; letter-spacing: 0.1em; margin-bottom: 2px; }
+  .tl-text { font-size: 12px; color: var(--ink); line-height: 1.5; }
+
+  /* IMPACT */
+  .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .impact-box {
+    border: 1px solid #ddd8cc;
+    border-radius: 3px;
+    padding: 14px 10px;
+    text-align: center;
+    background: white;
+  }
+  .impact-n { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--deep); }
+  .impact-l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; line-height: 1.4; }
+
+  /* COMPETITIONS */
+  .comp-list { display: flex; flex-direction: column; gap: 8px; }
+  .comp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 3px;
+    border-left: 3px solid var(--gold);
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .comp-place {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--gold);
+    width: 24px;
+    flex-shrink: 0;
+  }
+  .comp-name { flex: 1; }
+  .comp-year { font-size: 11px; color: var(--muted); }
+
+  /* FOOTER */
+  .footer {
+    background: var(--deep);
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-tag { font-size: 10px; color: rgba(245,242,235,0.35); letter-spacing: 0.12em; text-transform: uppercase; }
+  .footer-lang { display: flex; gap: 10px; }
+  .lang { font-size: 11px; padding: 3px 10px; border: 1px solid rgba(184,154,90,0.3); border-radius: 20px; color: var(--gold-light); }
 </style>
 
-<div class="wrap">
+<div class="pg">
+  <div class="shell">
 
-  <div class="hero">
-    <div class="avatar">MUN</div>
-    <div>
-      <p class="hero-name">Delegate profile — Model United Nations</p>
-      <p class="hero-sub">2019 – 2026 · Barranquilla, Colombia · Applying: Change the World MUN Paris 2026</p>
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <p class="eyebrow">Model United Nations · Delegate Profile</p>
+          <h1 class="name">MUN Delegate<br>2019 – 2026</h1>
+          <p class="subtitle">Barranquilla, Colombia · Applying: Change the World MUN Paris 2026</p>
+        </div>
+        <div class="conf-badge">
+          <div class="n">26</div>
+          <div class="l">Conferences</div>
+        </div>
+      </div>
+      <div class="stat-strip">
+        <div class="sstat"><div class="v">13</div><div class="l">Awards won</div></div>
+        <div class="sstat"><div class="v">50%</div><div class="l">Award rate</div></div>
+        <div class="sstat"><div class="v">7</div><div class="l">Leadership roles</div></div>
+      </div>
     </div>
+
+    <div class="body">
+
+      <div class="section">
+        <div class="sec-head"><span class="sec-title">Awards by type</span></div>
+        <div class="award-grid">
+          <div class="award-item">
+            <span class="award-name">1st Outstanding</span>
+            <div class="award-track"><div class="award-bar" style="width:100%;"></div></div>
+            <span class="award-count">5</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">Best Delegate</span>
+            <div class="award-track"><div class="award-bar" style="width:80%;"></div></div>
+            <span class="award-count">4</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">Best Chair</span>
+            <div class="award-track"><div class="award-bar" style="width:40%;"></div></div>
+            <span class="award-count">2</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">Best Jr. Delegate</span>
+            <div class="award-track"><div class="award-bar" style="width:20%;"></div></div>
+            <span class="award-count">1</span>
+          </div>
+          <div class="award-item">
+            <span class="award-name">Best Magistrate</span>
+            <div class="award-track"><div class="award-bar" style="width:20%;"></div></div>
+            <span class="award-count">1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="section" style="margin-bottom:0;">
+          <div class="sec-head"><span class="sec-title">Roles held</span></div>
+          <ul class="role-list">
+            <li class="role-item"><span>Delegate</span><span class="role-pill">19×</span></li>
+            <li class="role-item"><span>President / Chair</span><span class="role-pill">6×</span></li>
+            <li class="role-item"><span>Secretary-General</span><span class="role-pill">2×</span></li>
+            <li class="role-item"><span>Academic Coordinator</span><span class="role-pill">1×</span></li>
+            <li class="role-item"><span>MUN Club President</span><span class="role-pill">6 yrs</span></li>
+            <li class="role-item"><span>Conference Founder</span><span class="role-pill">2 MUNs</span></li>
+          </ul>
+        </div>
+
+        <div class="section" style="margin-bottom:0;">
+          <div class="sec-head"><span class="sec-title">Journey</span></div>
+          <div class="timeline">
+            <div class="tl"><div class="tl-year">2019</div><div class="tl-text">First conference as delegate — Cervmun V</div></div>
+            <div class="tl"><div class="tl-year">2020</div><div class="tl-text">First leadership role — President at Cervmun VI</div></div>
+            <div class="tl"><div class="tl-year">2022</div><div class="tl-text">First awards — Best Delegate & Best Junior Delegate</div></div>
+            <div class="tl"><div class="tl-year">2023–24</div><div class="tl-text">Founded MiniRoyalMUN & RoyalMUN (interschool conferences)</div></div>
+            <div class="tl"><div class="tl-year">2025</div><div class="tl-text">4 top awards in a row — KCP, AISMUN, BUCKMUN, ASMUN</div></div>
+            <div class="tl"><div class="tl-year">2026</div><div class="tl-text">OAS Model UN delegate → Paris 2026</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" style="margin-top:2rem;">
+        <div class="sec-head"><span class="sec-title">Real-world impact</span></div>
+        <div class="impact-grid">
+          <div class="impact-box"><div class="impact-n">500+</div><div class="impact-l">youth led<br>(Serafines)</div></div>
+          <div class="impact-box"><div class="impact-n">210+</div><div class="impact-l">children<br>supported</div></div>
+          <div class="impact-box"><div class="impact-n">8K</div><div class="impact-l">YEM social<br>interactions</div></div>
+          <div class="impact-box"><div class="impact-n">$3K</div><div class="impact-l">USD<br>raised</div></div>
+          <div class="impact-box"><div class="impact-n">120h</div><div class="impact-l">community<br>service</div></div>
+          <div class="impact-box"><div class="impact-n">500+</div><div class="impact-l">forum<br>attendees</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sec-head"><span class="sec-title">Academic & competition awards</span></div>
+        <div class="comp-list">
+          <div class="comp-row"><span class="comp-place">1°</span><span class="comp-name">Spelling Bee Royal Contest [Spanish]</span><span class="comp-year">2024</span></div>
+          <div class="comp-row"><span class="comp-place">1°</span><span class="comp-name">Royal Science Fair Contest</span><span class="comp-year">2025</span></div>
+          <div class="comp-row"><span class="comp-place">1°</span><span class="comp-name">Data Challenge — Universidad del Norte</span><span class="comp-year">2025</span></div>
+          <div class="comp-row"><span class="comp-place">1°</span><span class="comp-name">Creative Writing — Universidad del Norte</span><span class="comp-year">2025</span></div>
+          <div class="comp-row"><span class="comp-place">★</span><span class="comp-name">Student of the Week — Québec Camp (350 students)</span><span class="comp-year">2024</span></div>
+          <div class="comp-row"><span class="comp-place">★</span><span class="comp-name">Best Project — UN Global Goal Jams, Barranquilla</span><span class="comp-year">2025</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <span class="footer-tag">Delegate profile · 2026</span>
+      <div class="footer-lang">
+        <span class="lang">Spanish</span>
+        <span class="lang">English</span>
+        <span class="lang">French</span>
+      </div>
+    </div>
+
   </div>
-
-  <div class="metrics">
-    <div class="metric">
-      <div class="m-label">Conferences</div>
-      <div class="m-val">26</div>
-      <div class="m-sub">2019 – 2026</div>
-    </div>
-    <div class="metric">
-      <div class="m-label">Awards won</div>
-      <div class="m-val">13</div>
-      <div class="m-sub">across all conferences</div>
-    </div>
-    <div class="metric">
-      <div class="m-label">Award rate</div>
-      <div class="m-val">50%</div>
-      <div class="m-sub">1 in every 2 conferences</div>
-    </div>
-    <div class="metric">
-      <div class="m-label">Leadership roles</div>
-      <div class="m-val">7</div>
-      <div class="m-sub">Chair / President / Coord.</div>
-    </div>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <p class="sec">Awards by type</p>
-      <div class="bar-row">
-        <span class="bar-lbl">Best delegate</span>
-        <div class="bar-track"><div class="bar-fill" style="width:80%; background:#7F77DD;"></div></div>
-        <span class="bar-n">4</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-lbl">1st outstanding</span>
-        <div class="bar-track"><div class="bar-fill" style="width:100%; background:#534AB7;"></div></div>
-        <span class="bar-n">5</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-lbl">Best chair</span>
-        <div class="bar-track"><div class="bar-fill" style="width:40%; background:#1D9E75;"></div></div>
-        <span class="bar-n">2</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-lbl">Best jr. delegate</span>
-        <div class="bar-track"><div class="bar-fill" style="width:20%; background:#5DCAA5;"></div></div>
-        <span class="bar-n">1</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-lbl">Best magistrate</span>
-        <div class="bar-track"><div class="bar-fill" style="width:20%; background:#9FE1CB;"></div></div>
-        <span class="bar-n">1</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <p class="sec">Roles held</p>
-      <div class="row"><span class="row-l">Delegate</span><span class="badge bb">19 conferences</span></div>
-      <div class="row"><span class="row-l">President / Chair</span><span class="badge bg">6 conferences</span></div>
-      <div class="row"><span class="row-l">Academic coordinator</span><span class="badge bt">1 conference</span></div>
-      <div class="row"><span class="row-l">Secretary-General</span><span class="badge ba">2 conferences</span></div>
-      <div class="row"><span class="row-l">MUN club president</span><span class="badge bg">6 years</span></div>
-      <div class="row"><span class="row-l">MUN founder</span><span class="badge bt">MiniRoyalMUN + RoyalMUN</span></div>
-    </div>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <p class="sec">Journey (2019 – 2026)</p>
-      <div class="tl-item">
-        <div class="tl-l"><div class="tl-dot" style="background:#AFA9EC;"></div><div class="tl-line"></div></div>
-        <div><div class="tl-body">First conference as delegate — Cervmun V</div><div class="tl-yr">2019</div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-l"><div class="tl-dot" style="background:#534AB7;"></div><div class="tl-line"></div></div>
-        <div><div class="tl-body">First leadership role — President at Cervmun VI</div><div class="tl-yr">2020</div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-l"><div class="tl-dot" style="background:#EF9F27;"></div><div class="tl-line"></div></div>
-        <div><div class="tl-body">First awards — Best Delegate & Best Junior Delegate</div><div class="tl-yr">2022</div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-l"><div class="tl-dot" style="background:#534AB7;"></div><div class="tl-line"></div></div>
-        <div><div class="tl-body">Founded MiniRoyalMUN and RoyalMUN — interschool conferences</div><div class="tl-yr">2023–24</div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-l"><div class="tl-dot" style="background:#EF9F27;"></div><div class="tl-line"></div></div>
-        <div><div class="tl-body">Streak of 4 top awards in a row (KCP, AISMUN, BUCKMUN, ASMUN)</div><div class="tl-yr">2025</div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-l"><div class="tl-dot" style="background:#1D9E75;"></div></div>
-        <div><div class="tl-body">OAS Model UN delegate + Paris 2026</div><div class="tl-yr">2026</div></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <p class="sec">Academic & competition awards</p>
-      <div class="arow"><div class="adot" style="background:#1D9E75;"></div><span class="aname">1st place — Spelling Bee Royal Contest [Spanish]</span><span class="ayear badge bt">2024</span></div>
-      <div class="arow"><div class="adot" style="background:#1D9E75;"></div><span class="aname">1st place — Royal Science Fair Contest</span><span class="ayear badge bt">2025</span></div>
-      <div class="arow"><div class="adot" style="background:#534AB7;"></div><span class="aname">1st place — Data Challenge (U. del Norte)</span><span class="ayear badge bg">2025</span></div>
-      <div class="arow"><div class="adot" style="background:#534AB7;"></div><span class="aname">1st place — Creative writing contest (U. del Norte)</span><span class="ayear badge bg">2025</span></div>
-      <div class="arow"><div class="adot" style="background:#378ADD;"></div><span class="aname">Student of the week — Québec camp (350 students)</span><span class="ayear badge bb">2024</span></div>
-      <div class="arow"><div class="adot" style="background:#1D9E75;"></div><span class="aname">Best project — UN Global Goal Jams, Barranquilla</span><span class="ayear badge bt">2025</span></div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom:14px;">
-    <p class="sec">Real-world impact</p>
-    <div style="display:grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap:10px;">
-      <div class="impact-card"><div class="i-num">500+</div><div class="i-lbl">youth led (Serafines)</div></div>
-      <div class="impact-card"><div class="i-num">210+</div><div class="i-lbl">children supported</div></div>
-      <div class="impact-card"><div class="i-num">8K</div><div class="i-lbl">YEM social interactions</div></div>
-      <div class="impact-card"><div class="i-num">$3K</div><div class="i-lbl">USD raised</div></div>
-      <div class="impact-card"><div class="i-num">120h</div><div class="i-lbl">community service</div></div>
-      <div class="impact-card"><div class="i-num">500+</div><div class="i-lbl">forum attendees</div></div>
-    </div>
-  </div>
-
 </div>
